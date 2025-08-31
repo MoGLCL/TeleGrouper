@@ -14,7 +14,6 @@
 
 ## 🔗 Connect with Developers
 
----
 ### MoGlitch
 [![GitHub](https://img.shields.io/badge/GitHub-MoGLCL-black?style=flat-square&logo=github&logoColor=white)](https://github.com/MoGLCL)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Mohamed%20Wael-blue?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohamed-wael-elghanm-62b267363/)
