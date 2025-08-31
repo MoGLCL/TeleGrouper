@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Flask](https://img.shields.io/badge/Flask-2.3-green)
 ![Telethon](https://img.shields.io/badge/Telethon-1.27-purple)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey)
 ![Build](https://img.shields.io/badge/Build-Passing-brightgreen)
 ![Status](https://img.shields.io/badge/Status-Active-blueviolet)
 ![Stars](https://img.shields.io/github/stars/MoGLCL/TeleGrouper)
