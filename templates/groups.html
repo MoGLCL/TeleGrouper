@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء مجموعات تليجرام</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            /* Light Mode Colors */
+            --bg-color-light: #f5f5f7;
+            --container-bg-light: rgba(255, 255, 255, 0.4);
+            --text-color-light: #222;
+            --primary-light: #3390ec;
+            --primary-hover-light: #007bb6;
+            --input-bg-light: #f7f7f7;
+            --input-border-light: #e0e0e0;
+            --shadow-light: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+            --backdrop-filter-blur: blur(15px);
+
+            /* Other Existing Colors */
+            --tg-text-light-color: #9e9e9e;
+            --tg-danger-color: #e53935;
+            --tg-danger-bg-color: rgba(229, 57, 53, 0.1);
+            --tg-warning-color: #856404;
+            --tg-warning-bg-color: #fff3cd;
+        }
+
+        body.dark {
+            /* Dark Mode Colors */
+            --bg-color-dark: #121820;
+            --container-bg-dark: rgba(25, 30, 40, 0.5);
+            --text-color-dark: #ecf0f1;
+            --primary-dark: #4ECDC4;
+            --primary-hover-dark: #37b9b1;
+            --input-bg-dark: rgba(255, 255, 255, 0.05);
+            --input-border-dark: rgba(255, 255, 255, 0.1);
+            --shadow-dark: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            --tg-text-light-color: #777;
+            --tg-danger-bg-color: rgba(229, 57, 53, 0.3);
+            --tg-warning-bg-color: #9e640250;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(-45deg, #17212b, #1d2733, #2b5876, #4e4376);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+            color: var(--text-color-light);
+            transition: all 0.5s ease;
+        }
+        
+        body.dark {
+            background: linear-gradient(-45deg, #0f1c2b, #0c151f, #21435d, #3e385e);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            color: var(--text-color-dark);
+        }
+
+        .group-container {
+            width: 100%;
+            max-width: 600px;
+            padding: 32px;
+            background: var(--container-bg-light);
+            backdrop-filter: var(--backdrop-filter-blur);
+            -webkit-backdrop-filter: var(--backdrop-filter-blur);
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: right;
+            direction: rtl;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+            
+            /* Scrollable Container Styles */
+            max-height: 80vh; 
+            overflow-y: auto;
+
+            /* Hide scrollbar for Firefox */
+            scrollbar-width: none;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .group-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        body.dark .group-container {
+            background: var(--container-bg-dark);
+            box-shadow: var(--shadow-dark);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 3px solid #eee;
+        }
+
+        body.dark .profile img {
+             border-color: #333;
+        }
+        
+        .profile h2 {
+            margin: 10px 0 5px 0;
+            color: var(--text-color-light);
+        }
+        body.dark .profile h2 {
+            color: var(--text-color-dark);
+        }
+        
+        .profile p {
+            color: var(--tg-text-light-color);
+            margin: 0;
+        }
+        
+        input, textarea {
+            display: block;
+            width: 100%;
+            padding: 14px 12px;
+            margin: 5px 0 15px 0;
+            border-radius: 10px;
+            border: 1px solid var(--input-border-light);
+            font-size: 16px;
+            background-color: var(--input-bg-light);
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            color: var(--text-color-light);
+            transition: all 0.5s ease;
+        }
+        
+        body.dark input, body.dark textarea {
+            background: var(--input-bg-dark);
+            border: 1px solid var(--input-border-dark);
+            color: var(--text-color-dark);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--text-color-light);
+        }
+        body.dark label {
+            color: var(--text-color-dark);
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background-color: var(--input-bg-light);
+        }
+        body.dark input:focus, body.dark textarea:focus {
+            border-color: var(--primary-dark);
+            background-color: var(--input-bg-dark);
+        }
+        
+        button {
+            padding: 14px 25px;
+            background: var(--primary-light);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        body.dark button {
+             background: var(--primary-dark);
+        }
+
+        button:hover {
+            background: var(--primary-hover-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        body.dark button:hover {
+            background: var(--primary-hover-dark);
+        }
+        
+        .presets {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .presets button {
+            background: #6c757d;
+            margin: 0 5px;
+            padding: 10px 18px;
+            font-size: 14px;
+        }
+        
+        .presets button:hover {
+            background: #5a6268;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+        }
+        
+        .alert-danger {
+            color: var(--tg-danger-color);
+            background-color: var(--tg-danger-bg-color);
+            border-color: #f5c6cb;
+            text-align: center;
+        }
+
+        .alert-warning {
+            color: var(--tg-warning-color);
+            background-color: var(--tg-warning-bg-color);
+            border-color: #ffeeba;
+            text-align: center;
+        }
+        
+        .progress-container {
+            background: var(--container-bg-light);
+            backdrop-filter: var(--backdrop-filter-blur);
+            -webkit-backdrop-filter: var(--backdrop-filter-blur);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        body.dark .progress-container {
+             background: var(--container-bg-dark);
+             border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-bar {
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 5px;
+            height: 20px;
+            margin-top: 10px;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-light);
+            border-radius: 5px;
+            transition: width 0.4s ease;
+        }
+
+        body.dark .progress {
+            background: var(--primary-dark);
+        }
+        
+        .progress-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-color-light);
+        }
+        body.dark .progress-info {
+            color: var(--text-color-dark);
+        }
+        
+        .social-fab {
+            position: fixed;
+            right: 25px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+        }
+
+        #moglitchFab {
+            top: 80px;
+        }
+
+        #manonaFab {
+            bottom: 65px;
+        }
+
+        .fab-main-button {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            position: relative;
+            z-index: 2;
+            background-size: cover;
+            background-position: center;
+            background-image: url('https://cdn.discordapp.com/attachments/1232471738185678890/1411507073702690939/image.png?ex=68b4e7e6&is=68b39666&hm=21b032a5406bb147b1266cf2abf6656dd70728be7dc2a25f44505698cda4a85c&');
+        }
+        
+        #manonaFab .fab-main-button {
+             background-image: url('https://cdn.discordapp.com/attachments/1232471738185678890/1411506979163213885/image.png?ex=68b4e7d0&is=68b39650&hm=235ea5ebbafc0cf628eb8fabf7664d3222befe411e013d795adeb685339a9260&');
+        }
+
+        .fab-main-button i {
+            font-size: 28px;
+            color: white;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .fab-main-button .icon-close {
+            position: absolute;
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .social-fab.active .fab-main-button {
+            transform: rotate(360deg);
+            background-image: none !important;
+            background-color: #e91e63;
+        }
+        
+        .social-fab.active .fab-main-button .icon-close {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .social-icons-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .social-icons-container a {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background-color: white;
+            color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, background-color 0.1s ease, box-shadow 0.1s ease;
+            opacity: 0;
+            pointer-events: none;
+            text-decoration: none;
+        }
+        
+        body.dark .social-icons-container a {
+            background-color: #222;
+            color: var(--primary-dark);
+            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        }
+        
+        .social-fab.active .social-icons-container {
+            pointer-events: auto;
+        }
+
+        .social-fab.active .social-icons-container a {
+            opacity: 1;
+            pointer-events: auto; 
+        }
+        
+        .social-fab.active #moglitch-icons a:nth-child(1) { transform: translate(-50%, -50%) translateY(80px); transition-delay: 0.0s; }
+        .social-fab.active #moglitch-icons a:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg) translateY(80px) rotate(-45deg); transition-delay: 0.05s; }
+        .social-fab.active #moglitch-icons a:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg) translateY(80px) rotate(-90deg); transition-delay: 0.1s; }
+        .social-fab.active #moglitch-icons a:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg) translateY(80px) rotate(-135deg); transition-delay: 0.15s; }
+        .social-fab.active #moglitch-icons a:nth-child(5) { transform: translate(-50%, -50%) rotate(180deg) translateY(80px) rotate(-180deg); transition-delay: 0.2s; }
+        
+        .social-fab.active #manona-icons a:nth-child(1) { transform: translate(-50%, -50%) translateY(-80px); transition-delay: 0.0s; }
+        .social-fab.active #manona-icons a:nth-child(2) { transform: translate(-50%, -50%) rotate(-90deg) translateY(-80px) rotate(90deg); transition-delay: 0.1s; }
+
+        .social-icons-container a:hover {
+            color: var(--primary-light);
+        }
+        body.dark .social-icons-container a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .social-icons-container a:active {
+            background-color: #f0f0f0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        body.dark .social-icons-container a:active {
+            background-color: #333;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 15px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        .footer-link {
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: color 0.2s ease;
+        }
+        .footer-link:hover {
+            color: var(--primary-light);
+        }
+        body.dark .footer-link:hover {
+            color: var(--primary-dark);
+        }
+
+        #theme-toggle {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: var(--container-bg-light);
+            backdrop-filter: var(--backdrop-filter-blur);
+            -webkit-backdrop-filter: var(--backdrop-filter-blur);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-light);
+            color: var(--text-color-light);
+            font-size: 18px;
+            transition: all 0.5s ease;
+            z-index: 1000;
+        }
+        
+        body.dark #theme-toggle {
+            background: var(--container-bg-dark);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow-dark);
+            color: var(--text-color-dark);
+        }
+
+        #theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .group-container {
+                padding: 25px;
+            }
+            input, textarea {
+                font-size: 15px;
+            }
+            .social-fab {
+                right: 15px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .group-container {
+                padding: 20px;
+                margin-top: 20px;
+            }
+            .social-fab {
+                right: 10px;
+                width: 45px;
+                height: 45px;
+            }
+            #moglitchFab {
+                top: 70px;
+            }
+            #manonaFab {
+                bottom: 55px;
+            }
+            .social-fab.active #moglitch-icons a:nth-child(n) { transform: translate(-50%, -50%) translateY(70px) !important; }
+            .social-fab.active #manona-icons a:nth-child(n) { transform: translate(-50%, -50%) translateY(-70px) !important; }
+        }
+    </style>
+</head>
+<body>
+
+<button id="theme-toggle">
+    <i class="fas fa-moon"></i>
+</button>
+
+<div class="group-container">
+    <div class="profile">
+        {% if user_info.photo %}
+        <img src="data:image/jpeg;base64,{{ user_info.photo }}" alt="Profile Photo">
+        {% else %}
+        <img src="https://via.placeholder.com/100" alt="No Photo">
+        {% endif %}
+        <h2>{{ user_info.first_name }} {% if user_info.last_name %}{{ user_info.last_name }}{% endif %}</h2>
+        <p>@{{ user_info.username if user_info.username else 'No Username' }}</p>
+        <p>{{ user_info.phone }}</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <h3>إنشاء مجموعات تليجرام</h3>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>⚠️ تحذير:</strong> الفاصل الزمني الموصى به هو 45 ثانية أو أكثر لتجنب حظر حسابك. أي قيمة أقل هي على مسؤوليتك الشخصية.
+    </div>
+
+    <div class="presets">
+        <button type="button" onclick="setPreset('default')">إعدادات افتراضية</button>
+        <button type="button" onclick="setPreset('fast')">إنشاء سريع</button>
+        <button type="button" onclick="setPreset('marketing')">قالب تسويقي</button>
+    </div>
+
+    <form method="POST" id="group-form">
+        <label for="base_title">الاسم الأساسي للمجموعة:</label>
+        <input type="text" id="base_title" name="base_title" placeholder="مثال: TestGroup" required>
+
+        <label for="n">عدد المجموعات:</label>
+        <input type="number" id="n" name="n" min="1" value="5" required>
+
+        <label for="about">الوصف / عن المجموعة:</label>
+        <textarea id="about" name="about" placeholder="وصف المجموعة" rows="3"></textarea>
+
+        <label for="message">الرسالة التي سترسل في المجموعات:</label>
+        <textarea id="message" name="message" placeholder="محتوى الرسالة. استخدم {created_at} لعرض الوقت." rows="3"></textarea>
+
+        <label for="delay">الفاصل الزمني بين إنشاء المجموعات (بالثواني):</label>
+        <input type="number" id="delay" name="delay" min="45" value="45" required>
+
+        <button type="submit" id="submit-button">أنشئ المجموعات</button>
+    </form>
+    
+    <div id="progress-container" class="progress-container">
+        <h4>جاري إنشاء المجموعات...</h4>
+        <div class="progress-bar">
+            <div id="progress-bar" class="progress"></div>
+        </div>
+        <div id="progress-info" class="progress-info">
+            <p><strong>العدد المتبقي:</strong> <span id="remaining-groups"></span></p>
+            <p><strong>الوقت المتبقي:</strong> <span id="remaining-time"></span></p>
+            <p><strong>الوقت الكلي المقدر:</strong> <span id="total-time"></span></p>
+        </div>
+    </div>
+</div>
+
+<div class="social-fab" id="moglitchFab">
+    <div class="fab-main-button">
+        <i class="fas fa-times icon-close"></i>
+    </div>
+    <div class="social-icons-container" id="moglitch-icons">
+        <a href="https://github.com/MoGLCL" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/mohamed-wael-elghanm-62b267363/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/marcoelghnam" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/marco_eg2004/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@moglitch" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+</div>
+
+<div class="social-fab" id="manonaFab">
+    <div class="fab-main-button">
+        <i class="fas fa-times icon-close"></i>
+    </div>
+    <div class="social-icons-container" id="manona-icons">
+        <a href="https://www.facebook.com/menna.hassan.56814" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/eng_menna_hassan" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+</div>
+
+<footer>
+    made with 🤍 by <span class="footer-link" id="moglitchLink">MoGlitch</span> & <span class="footer-link" id="manonaLink">Manona</span>
+</footer>
+
+<script>
+    const toggleBtn = document.getElementById("theme-toggle");
+    toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        const icon = toggleBtn.querySelector('i');
+        if (document.body.classList.contains("dark")) {
+            icon.classList.remove("fa-moon");
+            icon.classList.add("fa-sun");
+        } else {
+            icon.classList.remove("fa-sun");
+            icon.classList.add("fa-moon");
+        }
+    });
+
+    function setupFab(fabId, linkId) {
+        const fab = document.getElementById(fabId);
+        const link = document.getElementById(linkId);
+        const otherFabId = fabId === 'moglitchFab' ? 'manonaFab' : 'moglitchFab';
+        const otherFab = document.getElementById(otherFabId);
+
+        const performToggle = () => {
+            if (otherFab.classList.contains('active')) {
+                otherFab.classList.remove('active');
+            }
+            fab.classList.toggle('active');
+        };
+
+        if (fab) {
+            fab.addEventListener('click', (event) => {
+                if (event.target.closest('a')) {
+                    return;
+                }
+                performToggle();
+            });
+        }
+        
+        if (link) {
+            link.addEventListener('click', performToggle);
+        }
+    }
+
+    setupFab('moglitchFab', 'moglitchLink');
+    setupFab('manonaFab', 'manonaLink');
+
+    const form = document.getElementById('group-form');
+    const submitButton = document.getElementById('submit-button');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar = document.getElementById('progress-bar');
+    const remainingGroupsSpan = document.getElementById('remaining-groups');
+    const remainingTimeSpan = document.getElementById('remaining-time');
+    const totalTimeSpan = document.getElementById('total-time');
+
+    let totalGroups = 0;
+    let delay = 0;
+    let remainingTime = 0;
+    let intervalId = null;
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        totalGroups = parseInt(document.getElementById('n').value);
+        delay = parseInt(document.getElementById('delay').value);
+
+        const totalDuration = totalGroups * delay;
+        remainingTime = totalDuration;
+        totalTimeSpan.textContent = formatTime(totalDuration);
+        
+        progressContainer.style.display = 'block';
+        form.style.display = 'none';
+
+        startCountdown();
+
+        console.log("Form submitted. Starting group creation simulation...");
+    });
+
+    function startCountdown() {
+        let createdGroups = 0;
+        
+        intervalId = setInterval(() => {
+            if (remainingTime <= 0) {
+                clearInterval(intervalId);
+                progressContainer.style.display = 'none';
+                form.style.display = 'block';
+                alert('تم الانتهاء من إنشاء المجموعات.');
+                return;
+            }
+
+            remainingTime--;
+            remainingTimeSpan.textContent = formatTime(remainingTime);
+
+            const totalDuration = totalGroups * delay;
+            const progress = ((totalDuration - remainingTime) / totalDuration) * 100;
+            progressBar.style.width = progress + '%';
+
+            if ((totalDuration - remainingTime) % delay === 0 && remainingTime < totalDuration) {
+                createdGroups++;
+            }
+            remainingGroupsSpan.textContent = totalGroups - createdGroups;
+
+        }, 1000);
+    }
+
+    function formatTime(seconds) {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = seconds % 60;
+        
+        const formattedH = h > 0 ? h + 'س ' : '';
+        const formattedM = m > 0 ? m + 'د ' : '';
+        const formattedS = s + 'ث';
+        
+        return formattedH + formattedM + formattedS;
+    }
+    
+    function setPreset(presetType) {
+        const form = document.getElementById('group-form');
+        if (presetType === 'default') {
+            form.n.value = 5;
+            form.about.value = '';
+            form.message.value = '';
+            form.delay.value = 45;
+        } else if (presetType === 'fast') {
+            form.n.value = 10;
+            form.delay.value = 45;
+            form.message.value = 'تم الإنشاء بسرعة! {created_at}';
+        } else if (presetType === 'marketing') {
+            form.base_title.value = 'مشروعي الجديد';
+            form.n.value = 20;
+            form.about.value = 'مجموعة مخصصة لمناقشة آخر تطورات مشروعنا الرائد.';
+            form.message.value = 'مرحبًا بالجميع في مجموعتنا الجديدة!\nهنا سنشارك كل الأخبار الحصرية.\nتاريخ الإنشاء: {created_at}';
+            form.delay.value = 60;
+        }
+    }
+</script>
+
+</body>
+</html>

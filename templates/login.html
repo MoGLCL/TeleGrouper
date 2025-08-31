@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- مكتبة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- مكتبة حقل إدخال رقم الهاتف الدولي -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <style>
+        :root {
+            --tg-primary-color: #3390ec;
+            --tg-secondary-color: #f1f5f8;
+            --tg-text-color: #222;
+            --tg-text-light-color: #9e9e9e;
+            --tg-bg-color: #fff;
+            --tg-danger-color: #e53935;
+            --tg-danger-bg-color: rgba(229, 57, 53, 0.1);
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(-45deg, #17212b, #1d2733, #2b5876, #4e4376);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            overflow: hidden; /* لمنع ظهور شريط التمرير */
+        }
+
+        .login-container {
+            width: 340px;
+            padding: 32px;
+            background: var(--tg-bg-color);
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: visible; /* تم التغيير للسماح للزر بالظهور */
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .telegram-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            background-color: var(--tg-primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .telegram-logo .fa-lock { /* تم تغيير الأيقونة */
+            font-size: 36px;
+            color: #fff;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--tg-text-color);
+            margin: 0 0 8px 0;
+        }
+
+        p.subtitle {
+            color: var(--tg-text-light-color);
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0 0 28px 0;
+        }
+
+        .form-content {
+            position: relative;
+            padding-bottom: 40px; /* إضافة مساحة للزر */
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .input-field {
+            width: 100%;
+            border: 1px solid #e0e0e0;
+            padding: 14px 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f7f7f7;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--tg-primary-color);
+            background-color: var(--tg-bg-color);
+        }
+
+        .input-label {
+            position: absolute;
+            top: 15px;
+            right: 12px;
+            font-size: 16px;
+            color: var(--tg-text-light-color);
+            pointer-events: none;
+            transition: all 0.2s ease;
+            background-color: #f7f7f7;
+            padding: 0 4px;
+        }
+        
+        .input-field:focus + .input-label,
+        .input-field:not(:placeholder-shown) + .input-label {
+            top: -10px;
+            right: 10px;
+            font-size: 12px;
+            color: var(--tg-primary-color);
+        }
+        
+        .input-field:focus + .input-label {
+             background-color: var(--tg-bg-color);
+        }
+        
+        .input-field:not(:placeholder-shown) + .input-label {
+            background-color: #f7f7f7;
+        }
+        
+        .input-field:focus:not(:placeholder-shown) + .input-label {
+            background-color: var(--tg-bg-color);
+        }
+
+        .submit-button {
+            position: absolute;
+            bottom: -28px; /* تم تعديل الموضع */
+            left: 50%; /* توسيط الزر */
+            transform: translateX(-50%); /* إزاحة للمنتصف تمامًا */
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: var(--tg-primary-color);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(51, 144, 236, 0.4);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        
+        .submit-button:hover {
+            transform: translateX(-50%) scale(1.1); /* تعديل التحويل عند المرور */
+            background-color: #2a81d0;
+        }
+
+        .flash {
+            color: var(--tg-danger-color);
+            background-color: var(--tg-danger-bg-color);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        /* تخصيص شكل حقل إدخال رقم الهاتف */
+        .iti {
+            width: 100%;
+            direction: ltr; /* المكتبة تعمل بشكل أفضل في وضع LTR */
+        }
+        .iti .input-field {
+            padding-left: 52px; /* إضافة مساحة لرمز الدولة */
+            direction: rtl; /* الحفاظ على الكتابة من اليمين لليسار */
+        }
+        .iti__flag-container {
+            left: 5px; /* وضع العلم على اليسار */
+            right: auto;
+        }
+        .iti__country-list {
+            text-align: left; /* محاذاة النص في القائمة المنسدلة */
+        }
+
+        .social-fab {
+            position: fixed;
+            right: 25px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+        }
+
+        #moglitchFab {
+            top: 80px;
+        }
+
+        #manonaFab {
+            bottom: 65px;
+        }
+
+        .fab-main-button {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            position: relative;
+            z-index: 2;
+            background-size: cover;
+            background-position: center;
+        }
+
+        #moglitchFab .fab-main-button { 
+            background-image: url('https://cdn.discordapp.com/attachments/1232471738185678890/1411507073702690939/image.png?ex=68b4e7e6&is=68b39666&hm=21b032a5406bb147b1266cf2abf6656dd70728be7dc2a25f44505698cda4a85c&'); 
+        }
+        #manonaFab .fab-main-button { 
+            background-image: url('https://cdn.discordapp.com/attachments/1232471738185678890/1411506979163213885/image.png?ex=68b4e7d0&is=68b39650&hm=235ea5ebbafc0cf628eb8fabf7664d3222befe411e013d795adeb685339a9260&');
+        }
+
+        .fab-main-button i {
+            font-size: 28px;
+            color: white;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .fab-main-button .icon-close {
+            position: absolute;
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .social-fab.active .fab-main-button {
+            transform: rotate(360deg);
+            background-image: none !important;
+            background-color: #e91e63;
+        }
+        
+        .social-fab.active .fab-main-button .icon-close {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .social-icons-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .social-icons-container a {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background-color: white;
+            color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, background-color 0.1s ease, box-shadow 0.1s ease;
+            opacity: 0;
+            pointer-events: none;
+            text-decoration: none;
+        }
+        
+        .social-fab.active .social-icons-container {
+            pointer-events: auto;
+        }
+
+        .social-fab.active .social-icons-container a {
+            opacity: 1;
+            pointer-events: auto; 
+        }
+        
+        .social-fab.active #moglitch-icons a:nth-child(1) { transform: translate(-50%, -50%) translateY(80px); transition-delay: 0.0s; }
+        .social-fab.active #moglitch-icons a:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg) translateY(80px) rotate(-45deg); transition-delay: 0.05s; }
+        .social-fab.active #moglitch-icons a:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg) translateY(80px) rotate(-90deg); transition-delay: 0.1s; }
+        .social-fab.active #moglitch-icons a:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg) translateY(80px) rotate(-135deg); transition-delay: 0.15s; }
+        .social-fab.active #moglitch-icons a:nth-child(5) { transform: translate(-50%, -50%) rotate(180deg) translateY(80px) rotate(-180deg); transition-delay: 0.2s; }
+        
+        .social-fab.active #manona-icons a:nth-child(1) { transform: translate(-50%, -50%) translateY(-80px); transition-delay: 0.0s; }
+        .social-fab.active #manona-icons a:nth-child(2) { transform: translate(-50%, -50%) rotate(-90deg) translateY(-80px) rotate(90deg); transition-delay: 0.1s; }
+
+        .social-icons-container a:hover {
+            color: var(--tg-primary-color);
+        }
+        
+        .social-icons-container a:active {
+            background-color: #f0f0f0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 15px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        .footer-link {
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: color 0.2s ease;
+        }
+        .footer-link:hover {
+            color: var(--tg-primary-color);
+        }
+        
+        /* --- بدء تنسيقات نافذة التحذير --- */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-backdrop.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 24px 28px;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 90%;
+            text-align: right;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-backdrop.visible .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h2 {
+            font-size: 22px;
+            color: var(--tg-text-color);
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .modal-content h2 .fa-shield-halved {
+            color: #f59e0b; /* لون برتقالي دافئ */
+            margin-left: 10px;
+            font-size: 24px;
+        }
+
+        .modal-content p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #555;
+            margin: 0 0 24px 0;
+        }
+
+        .modal-content .modal-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--tg-primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .modal-content .modal-button:hover {
+            background-color: #2a81d0;
+        }
+        /* --- نهاية تنسيقات نافذة التحذير --- */
+
+    </style>
+</head>
+<body>
+    
+    <!-- نافذة التحذير -->
+    <div id="warningModal" class="modal-backdrop">
+        <div class="modal-content">
+            <h2>
+                <i class="fa-solid fa-shield-halved"></i>
+                تنبيه هام بشأن خصوصيتك
+            </h2>
+            <p>
+                هذا الموقع يقوم بتخزين بياناتك الحساسة (API ID, API Hash) في ملفات تعريف الارتباط (الكوكيز) داخل متصفحك لتسهيل عملية الدخول. <strong>نحن لا نخزن أيًا من هذه المعلومات في قواعد بياناتنا.</strong>
+                <br><br>
+                حماية هذه البيانات هي مسؤوليتك الكاملة. تأكد من عدم وصول أي شخص غير موثوق به إلى جهازك لتجنب سرقة بياناتك أو تعريض حسابك في تيليجرام للخطر.
+            </p>
+            <button id="closeModalBtn" class="modal-button">موافق، فهمت</button>
+        </div>
+    </div>
+
+
+    <div class="login-container">
+        <div class="telegram-logo">
+            <i class="fa fa-lock"></i>
+        </div>
+        <h1>Login</h1>
+        <p class="subtitle">الرجاء إدخال بياناتك للمتابعة.</p>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for msg in messages %}
+              <div class="flash">{{ msg }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form-content">
+                <div class="input-group">
+                    <input type="text" name="api_id" id="api_id" class="input-field" placeholder=" " required>
+                    <label for="api_id" class="input-label">API ID</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="api_hash" id="api_hash" class="input-field" placeholder=" " required>
+                    <label for="api_hash" class="input-label">API Hash</label>
+                </div>
+                <div class="input-group">
+                    <!-- حقل الهاتف المرئي للمستخدم -->
+                    <input type="tel" id="phone" class="input-field" required>
+                    <!-- حقل مخفي لإرسال الرقم الكامل -->
+                    <input type="hidden" name="phone" id="phone_hidden">
+                </div>
+                <button type="submit" class="submit-button" aria-label="Next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="social-fab" id="moglitchFab">
+        <div class="fab-main-button">
+            <i class="fas fa-times icon-close"></i>
+        </div>
+        <div class="social-icons-container" id="moglitch-icons">
+            <a href="https://github.com/MoGLCL" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/mohamed-wael-elghanm-62b267363/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.facebook.com/marcoelghnam" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/marco_eg2004/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@moglitch" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </div>
+    
+    <div class="social-fab" id="manonaFab">
+        <div class="fab-main-button">
+            <i class="fas fa-times icon-close"></i>
+        </div>
+        <div class="social-icons-container" id="manona-icons">
+             <a href="https://www.facebook.com/menna.hassan.56814" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+             <a href="https://www.instagram.com/eng_menna_hassan" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+
+    <footer>
+        made with 🤍 by <span class="footer-link" id="moglitchLink">MoGlitch</span> & <span class="footer-link" id="manonaLink">Manona</span>
+    </footer>
+
+    <!-- مكتبة JS الخاصة بحقل إدخال رقم الهاتف -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+    <script>
+        // --- بدء كود نافذة التحذير ---
+        const warningModal = document.getElementById('warningModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        // التحقق مما إذا كان التحذير قد تم إغلاقه في هذه الجلسة
+        if (!sessionStorage.getItem('warningDismissed')) {
+            // إظهار النافذة إذا لم يتم إغلاقها
+            setTimeout(() => {
+                warningModal.classList.add('visible');
+            }, 500); // تأخير بسيط لظهور أكثر سلاسة
+        }
+
+        const dismissModal = () => {
+            warningModal.classList.remove('visible');
+            // حفظ حالة الإغلاق في `sessionStorage`
+            sessionStorage.setItem('warningDismissed', 'true');
+        };
+
+        closeModalBtn.addEventListener('click', dismissModal);
+        warningModal.addEventListener('click', (event) => {
+            // إغلاق النافذة فقط عند النقر على الخلفية نفسها
+            if (event.target === warningModal) {
+                dismissModal();
+            }
+        });
+        // --- نهاية كود نافذة التحذير ---
+
+
+        // إعداد أزرار التواصل الاجتماعي
+        function setupFab(fabId, linkId) {
+            const fab = document.getElementById(fabId);
+            const link = document.getElementById(linkId);
+            const otherFabId = fabId === 'moglitchFab' ? 'manonaFab' : 'moglitchFab';
+            const otherFab = document.getElementById(otherFabId);
+
+            const performToggle = () => {
+                if (otherFab.classList.contains('active')) {
+                    otherFab.classList.remove('active');
+                }
+                fab.classList.toggle('active');
+            };
+
+            fab.addEventListener('click', (event) => {
+                if (event.target.closest('a')) { return; }
+                performToggle();
+            });
+
+            if (link) {
+                link.addEventListener('click', performToggle);
+            }
+        }
+
+        setupFab('moglitchFab', 'moglitchLink');
+        setupFab('manonaFab', 'manonaLink');
+        
+        // --- بدء كود حقل الهاتف ---
+        const phoneInput = document.querySelector("#phone");
+        const hiddenInput = document.querySelector("#phone_hidden");
+        const loginForm = document.querySelector("form");
+
+        const iti = window.intlTelInput(phoneInput, {
+            initialCountry: "eg",
+            placeholderNumberType: "MOBILE",
+            preferredCountries: ["eg", "sa", "ae", "kw", "qa", "us", "gb"],
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        function showPhoneError(message) {
+            const container = phoneInput.closest('.input-group');
+            let errorDiv = container.querySelector('.phone-error');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'flash phone-error';
+                errorDiv.style.cssText = 'margin-top: 8px; font-size: 13px; text-align: right;';
+                container.appendChild(errorDiv);
+            }
+            errorDiv.textContent = message;
+        }
+
+        function clearPhoneError() {
+            const errorDiv = phoneInput.closest('.input-group').querySelector('.phone-error');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+        }
+
+        phoneInput.addEventListener('input', () => {
+            clearPhoneError();
+            if (iti.getSelectedCountryData().iso2 === 'eg') {
+                let currentVal = phoneInput.value.trim();
+                if (currentVal.startsWith('0')) {
+                    phoneInput.value = currentVal.substring(1);
+                }
+            }
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault(); 
+            if (iti.isValidNumber()) {
+                clearPhoneError();
+                hiddenInput.value = iti.getNumber();
+                loginForm.submit();
+            } else {
+                showPhoneError('الرقم الذي أدخلته غير صالح. الرجاء التأكد منه.');
+            }
+        });
+        // --- نهاية كود حقل الهاتف ---
+
+    </script>
+
+</body>
+</html>
+
