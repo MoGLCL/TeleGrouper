@@ -1,86 +1,74 @@
-📝 Telegram Group Creator Web App
-🔗 Connect with Developers
-MoGlitch
-Manona
-🚀 Core Features
-✅ Telegram Login: Secure login via phone number, code, and two-factor authentication.
+# 📝 Telegram Group Creator Web App
 
-✅ Bulk Group Creation: Create multiple Telegram groups with sequential titles effortlessly.
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![Flask](https://img.shields.io/badge/Flask-2.3-green)
+![Telethon](https://img.shields.io/badge/Telethon-1.27-purple)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Build](https://img.shields.io/badge/Build-Passing-brightgreen)
+![Status](https://img.shields.io/badge/Status-Active-blueviolet)
+![Stars](https://img.shields.io/github/stars/MoGLCL/TeleGrouper)
+![Forks](https://img.shields.io/github/forks/MoGLCL/TeleGrouper)
+![Issues](https://img.shields.io/github/issues/MoGLCL/TeleGrouper)
 
-✅ Custom Messaging: Send a unique, custom message to each newly created group.
+---
 
-✅ Flood Control: Set a delay between group creations to avoid Telegram's flood limits.
+## 🔗 Connect with Developers
 
-✅ User Dashboard: View your profile information (username, phone, and photo) after logging in.
+---
+### MoGlitch
+[![GitHub](https://img.shields.io/badge/GitHub-MoGLCL-black?style=flat-square&logo=github&logoColor=white)](https://github.com/MoGLCL)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Mohamed%20Wael-blue?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohamed-wael-elghanm-62b267363/)
+[![Facebook](https://img.shields.io/badge/Facebook-MarcoElghnam-1877F2?style=flat-square&logo=facebook&logoColor=white)](https://www.facebook.com/marcoelghnam)
+[![Instagram](https://img.shields.io/badge/Instagram-Marco_eg2004-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://www.instagram.com/marco_eg2004/)
+[![TikTok](https://img.shields.io/badge/TikTok-MoGlitch-000000?style=flat-square&logo=tiktok&logoColor=white)](https://www.tiktok.com/@moglitch)
+---
+### Manona
+[![Facebook](https://img.shields.io/badge/Facebook-Menna%20Hassan-1877F2?style=flat-square&logo=facebook&logoColor=white)](https://www.facebook.com/menna.hassan.56814)
+[![Instagram](https://img.shields.io/badge/Instagram-Eng_Menna_Hassan-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://www.instagram.com/eng_menna_hassan)
 
-✅ Robust Error Handling: Manages common Telethon errors like invalid codes, flood waits, and more.
+---
 
-✅ Session Management: Handles multiple user sessions securely.
+## 🚀 Features
 
-✨ Login Page Features
-Our login page is designed to be modern, user-friendly, and secure.
+- ✅ Telegram login via **phone number + code**.
+- ✅ Supports **two-factor authentication** (password) if required.
+- ✅ Create **multiple Telegram groups** with sequential titles.
+- ✅ Send **custom messages** to each newly created group.
+- ✅ Set **delay between creations** to avoid flood limits.
+- ✅ View **profile info** (username, phone, profile photo) on dashboard.
+- ✅ Handles **common Telethon errors** (invalid code, expired code, flood wait, etc.).
+- ✅ Session management for multiple users.
 
-🎨 Animated Background: A sleek, animated gradient background provides a modern aesthetic.
+---
 
-🔒 Security Warning: A prominent modal appears on the first visit, warning users that their sensitive data is stored locally in browser cookies and advising them to protect their session.
+## 🛠️ Technologies
 
-📱 International Phone Input: A user-friendly phone number field with a dropdown for all country codes and flags, defaulting to Egypt.
+- **Python 3.11+**
+- **Flask** – Lightweight web framework
+- **Telethon** – Async Telegram client library
+- **Nest Asyncio** – For running async functions in Flask
+- **Bootstrap 5** – For responsive front-end (optional)
+- **ZoneInfo** – For timezone handling
 
-🇪🇬 Smart Validation: Includes automatic formatting and validation for Egyptian phone numbers, ensuring data accuracy.
+---
 
-✒️ Floating Labels: Input fields feature floating labels for a clean and intuitive user experience.
+## 📦 Installation
 
-🌐 Developer Socials: Interactive Floating Action Buttons (FABs) provide quick access to the developers' social media profiles with a smooth animation.
+1. Clone this repository:
 
-📱 Fully Responsive: The entire page is designed to work seamlessly on all devices, from desktops to mobile phones.
-
-🛠️ Technologies
-Python 3.11+
-
-Flask – Lightweight web framework
-
-Telethon – Async Telegram client library
-
-Nest Asyncio – For running async functions in Flask
-
-HTML5 & CSS3 – For the frontend structure and styling.
-
-JavaScript – To handle interactive elements like the security modal, social FABs, and phone validation.
-
-intl-tel-input – A JavaScript plugin for international telephone number input.
-
-📦 Installation
-Clone this repository:
-
-git clone [https://github.com/MoGLCL/TeleGrouper.git](https://github.com/MoGLCL/TeleGrouper.git)
-cd TeleGrouper
-
-Create a virtual environment and activate it:
-
-# For Linux / macOS
-python3 -m venv venv
-source venv/bin/activate
-
-# For Windows
+```bash
+git clone https://github.com/MoGLCL/telegram-group-creator.git
+cd telegram-group-creator
+```
+2.Create a virtual environment and activate it:
+```py
 python -m venv venv
-venv\Scripts\activate
-
-Install dependencies:
-
+source venv/bin/activate  # Linux / macOS
+venv\Scripts\activate     # Windows
+```
+3.Install dependencies:
+```py
 pip install -r requirements.txt
+```
 
-▶️ How to Run
-After installation, start the Flask application by running:
 
-python app.py
-
-The application will be accessible at http://127.0.0.1:5000.
-
-📸 Screenshots
-(A screenshot of the main login page, showing the input fields, animated background, and developer FABs)
-
-🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
-
-📄 License
-This project is licensed under the MIT License. See the LICENSE file for more details.
